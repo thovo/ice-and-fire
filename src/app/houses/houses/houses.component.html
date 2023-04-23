@@ -1,1 +1,72 @@
-<p>houses works!</p>
+<div class="group">
+  <div class="spinner-container" *ngIf="dataSource.loading$ | async">
+    <mat-spinner></mat-spinner>
+  </div>
+  <table mat-table class="mat-elevation-z8" [dataSource]="dataSource">
+    <ng-container matColumnDef="url">
+      <th mat-header-cell *matHeaderCellDef>ID</th>
+      <td mat-cell *matCellDef="let house">
+        <a href="{{ house.url }}">{{ house.url | getId : "houses/" }}</a>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let house">{{ house.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="region">
+      <th mat-header-cell *matHeaderCellDef>Region</th>
+      <td mat-cell *matCellDef="let house">{{ house.region }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="coatOfArms">
+      <th mat-header-cell *matHeaderCellDef>Coat of arms</th>
+      <td mat-cell *matCellDef="let house">{{ house.coatOfArms }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="words">
+      <th mat-header-cell *matHeaderCellDef>Words</th>
+      <td mat-cell *matCellDef="let house">{{ house.words }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef>Title</th>
+      <td mat-cell *matCellDef="let house">{{ house.title }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="currentLord">
+      <th mat-header-cell *matHeaderCellDef>Current lord</th>
+      <td mat-cell *matCellDef="let house">
+        <a href="{{ house.currentLord }}">{{
+          house.currentLord | getId : "characters/"
+        }}</a>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="heir">
+      <th mat-header-cell *matHeaderCellDef>Heir</th>
+      <td mat-cell *matCellDef="let house">
+        <a href="{{ house.heir }}">{{ house.heir | getId : "characters/" }}</a>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="overlord">
+      <th mat-header-cell *matHeaderCellDef>overlord</th>
+      <td mat-cell *matCellDef="let house">
+        <a href="{{ house.overlord }}">{{
+          house.overlord | getId : "characters/"
+        }}</a>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="ancestralWeapons">
+      <th mat-header-cell *matHeaderCellDef>Ancestral weapons</th>
+      <td mat-cell *matCellDef="let house">{{ house.ancestralWeapons }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
