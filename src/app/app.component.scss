@@ -1,0 +1,67 @@
+.container {
+    display: grid;
+    grid-template-rows: auto 1fr 52px;
+    height: 100vh;
+}
+header {
+    .group {
+        padding: 1rem 2rem;
+    }
+    .logo {
+        background-color: #ffec44;
+        font-family: 'Sedgwick Ave Display', cursive;
+        font-size: 2rem;
+        text-align: center;
+    }
+    #menu {
+        box-shadow: 0 0 30px rgba(0,0,0,0.15);
+        .group {
+            justify-content: space-evenly;
+        }
+        a {
+            font-size: 1rem;
+            line-height: 2rem;
+            color: #1f1c00;
+            position: relative;
+            &:after {
+                content: '';
+                height: 0.4rem;
+                background-color: #ffec44;
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                transform: scaleX(0);
+                transform-origin: 0 50%;
+                transition-property: transform;
+                transition-duration: 0.3s;
+                transition-timing-function: ease-out;
+            }
+            &:hover {
+                &:after {
+                    transform: scaleX(1);
+                }
+            }
+            &.active {
+                &:after {
+                    transform: scaleX(1);
+                }
+            }
+        }
+    }
+
+    .welcome-title {
+        background: #DFEEE1;
+        font-size: 2.5rem;
+        line-height: 3rem;
+    }
+}
+
+footer {
+    background-color: #1f1c00;
+    color: white;
+    padding: 1rem 2rem;
+    a {
+        color: white;
+    }
+}
