@@ -16,3 +16,12 @@ export type Character = {
     tvSeries: string[];
     playedBy: string[]
 };
+
+export type CharactersFilterConfig = {
+    name: string | undefined,
+    gender: string | undefined,
+    culture: string | undefined,
+    born: string | undefined,
+    died: string | undefined,
+    isAlive: boolean | null | undefined
+};

@@ -8,7 +8,8 @@ import { AuthEffects } from './effects/auth.effects';
 import { authReducer } from './reducers/auth.reducer';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild([]),

@@ -1,72 +1,52 @@
 <div class="group">
-  <div class="spinner-container" *ngIf="dataSource.loading$ | async">
-    <mat-spinner></mat-spinner>
-  </div>
-  <table mat-table class="mat-elevation-z8" [dataSource]="dataSource">
-    <ng-container matColumnDef="url">
-      <th mat-header-cell *matHeaderCellDef>ID</th>
-      <td mat-cell *matCellDef="let house">
-        <a href="{{ house.url }}">{{ house.url | getId : "houses/" }}</a>
-      </td>
-    </ng-container>
+  <form class="filter-form" [formGroup]="filterForm" (ngSubmit)="getHouses()">
+    <h3>Filter the data</h3>
+    <mat-form-field>
+      <mat-label>Name of the house</mat-label>
+      <input matInput formControlName="name">
+      <mat-hint align="start">Search by name of the house, you need to type correctly the name like House Allyrion of
+        Godsgrace to
+        find info about it</mat-hint>
+    </mat-form-field>
 
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Name</th>
-      <td mat-cell *matCellDef="let house">{{ house.name }}</td>
-    </ng-container>
+    <mat-form-field>
+      <mat-label>Region of the house</mat-label>
+      <input matInput formControlName="region">
+      <mat-hint align="start">Search by region of the house, you need to type correctly the region like The Westerlands
+        to
+        find info about it</mat-hint>
+    </mat-form-field>
 
-    <ng-container matColumnDef="region">
-      <th mat-header-cell *matHeaderCellDef>Region</th>
-      <td mat-cell *matCellDef="let house">{{ house.region }}</td>
-    </ng-container>
+    <mat-form-field>
+      <mat-label>Words of the house</mat-label>
+      <input matInput formControlName="words">
+      <mat-hint align="start">Search by words of the house, you need to type correctly the words like No Foe May Pass to
+        find info about it</mat-hint>
+    </mat-form-field>
 
-    <ng-container matColumnDef="coatOfArms">
-      <th mat-header-cell *matHeaderCellDef>Coat of arms</th>
-      <td mat-cell *matCellDef="let house">{{ house.coatOfArms }}</td>
-    </ng-container>
+    <section class="checkboxes">
+      <mat-checkbox formControlName="hasWords">Has words</mat-checkbox>
+      <mat-checkbox formControlName="hasTitles">Has titles</mat-checkbox>
+      <mat-checkbox formControlName="hasSeats">Has seats</mat-checkbox>
+      <mat-checkbox formControlName="hasDiedOut">Has died out</mat-checkbox>
+      <mat-checkbox formControlName="hasAncestralWeapons">Has ancestral weapons</mat-checkbox>
+    </section>
 
-    <ng-container matColumnDef="words">
-      <th mat-header-cell *matHeaderCellDef>Words</th>
-      <td mat-cell *matCellDef="let house">{{ house.words }}</td>
-    </ng-container>
 
-    <ng-container matColumnDef="title">
-      <th mat-header-cell *matHeaderCellDef>Title</th>
-      <td mat-cell *matCellDef="let house">{{ house.title }}</td>
-    </ng-container>
 
-    <ng-container matColumnDef="currentLord">
-      <th mat-header-cell *matHeaderCellDef>Current lord</th>
-      <td mat-cell *matCellDef="let house">
-        <a href="{{ house.currentLord }}">{{
-          house.currentLord | getId : "characters/"
-        }}</a>
-      </td>
-    </ng-container>
+    <div class="actions">
+      <button mat-raised-button type="reset">Reset</button>
+      <button mat-raised-button color="primary" type="submit">Filter</button>
+    </div>
+  </form>
 
-    <ng-container matColumnDef="heir">
-      <th mat-header-cell *matHeaderCellDef>Heir</th>
-      <td mat-cell *matCellDef="let house">
-        <a href="{{ house.heir }}">{{ house.heir | getId : "characters/" }}</a>
-      </td>
-    </ng-container>
 
-    <ng-container matColumnDef="overlord">
-      <th mat-header-cell *matHeaderCellDef>overlord</th>
-      <td mat-cell *matCellDef="let house">
-        <a href="{{ house.overlord }}">{{
-          house.overlord | getId : "characters/"
-        }}</a>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="ancestralWeapons">
-      <th mat-header-cell *matHeaderCellDef>Ancestral weapons</th>
-      <td mat-cell *matCellDef="let house">{{ house.ancestralWeapons }}</td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
 </div>
+
+<section class="display">
+  <app-content-pagination [dataSource]="dataSource" [loading$]="dataSource.loading$"
+    [displayedColumns]="displayedColumns" [configs]="configs" [pagination]="true" [dataLength]="50"
+    [pageIndex]="pageIndex - 1" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+    (page)="handlePageEventChange($event)">
+  </app-content-pagination>
+</section>

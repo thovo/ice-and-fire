@@ -1,0 +1,33 @@
+.group {
+    margin: 20px auto;
+    flex-direction: column;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.filter-form {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    width: calc(100% - 20px);
+}
+
+.display {
+    width: calc(100% - 20px);
+    padding: 0 10px;
+    overflow: auto;
+}
+
+.checkboxes {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+@media screen and (max-width: 425px) {
+    .checkboxes {
+        flex-direction: column;
+    }
+}

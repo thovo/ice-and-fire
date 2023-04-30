@@ -21,14 +21,11 @@ export class BooksDataSource implements DataSource<Book> {
         this.loadingSubject.complete();
     }
 
-    loadBooks(filter = '', sortDirection = 'asc', pageIndex = 0, pageSize = 3) {
-
+    loadBooks(pageSize: number = 10, pageIndex: number = 1, name?: string, fromReleaseDate?: string, toReleaseDate?: string) {
         this.loadingSubject.next(true);
-
-        this.booksService.getBooks().pipe(
+        this.booksService.getBooks(pageSize, pageIndex, name, fromReleaseDate, toReleaseDate).pipe(
             catchError(() => of([])),
             finalize(() => this.loadingSubject.next(false))
-        )
-            .subscribe(books => this.booksSubject.next(books));
+        ).subscribe(books => this.booksSubject.next(books));
     }
 }
