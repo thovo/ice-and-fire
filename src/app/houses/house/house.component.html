@@ -1,1 +1,80 @@
-<p>house works!</p>
+<div class="house">
+    <div class="spinner-container" *ngIf="!(house$ | async)">
+        <mat-spinner></mat-spinner>
+    </div>
+    <mat-card *ngIf="(house$ | async) as house">
+        <mat-card-header>
+            <mat-card-title>{{house.name}}</mat-card-title>
+            <mat-card-subtitle>Words: {{house.words}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="content">
+                <span>Region: {{house.region}}</span>
+                <span>Coat of arms: {{house.coatOfArms}}</span>
+                <div class="titles">
+                    <span>Titles: </span>
+                    <ul>
+                        <li *ngFor="let title of house.titles">{{title}}</li>
+                    </ul>
+                </div>
+                <div class="seats">
+                    <span>Seats: </span>
+                    <ul>
+                        <li *ngFor="let seat of house.seats">{{seat}}</li>
+                    </ul>
+                </div>
+                <span>Current lord:
+                    <a [routerLink]="['/','characters', (house.currentLord | getId: 'characters/')]">
+                        {{house.currentLord |
+                        getId: 'characters/'}}
+                    </a>
+                </span>
+                <span>Heir:
+                    <a [routerLink]="['/','characters', (house.heir | getId: 'characters/')]">
+                        {{house.heir | getId:
+                        'characters/'}}
+                    </a>
+                </span>
+                <span>Overlord:
+                    <a [routerLink]="['/','houses', (house.overlord | getId: 'houses/')]">
+                        {{house.overlord | getId:
+                        'houses/'}}
+                    </a>
+                </span>
+                <span>Founded: {{house.founded}}</span>
+                <span>
+                    Founder:
+                    <a [routerLink]="['/','characters', (house.founder | getId: 'characters/')]">
+                        {{house.founder | getId:'characters/'}}
+                    </a>
+                </span>
+                <span>Died out: {{house.diedOut}}</span>
+                <div class="weapons">
+                    <span>Ancestral weapons: </span>
+                    <ul>
+                        <li *ngFor="let weapon of house.ancestralWeapons">{{weapon}}</li>
+                    </ul>
+                </div>
+                <div class="cadet-branches">
+                    <span>Cadet branches: </span>
+                    <ul>
+                        <li *ngFor="let branch of house.cadetBranches">
+                            <a [routerLink]="['/','houses', (branch | getId: 'houses/')]">{{branch | getId:
+                                'houses/'}}</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="sworn-members">
+                    <span>Sworn members: </span>
+                    <ul>
+                        <li *ngFor="let member of house.swornMembers">
+                            <a [routerLink]="['/','characters', (member | getId: 'characters/')]">
+                                {{member | getId:'characters/'}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

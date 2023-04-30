@@ -1,108 +1,65 @@
-<div class="mat-elevation-z8">
-  <div class="spinner-container" *ngIf="dataSource.loading$ | async">
-    <mat-spinner></mat-spinner>
-  </div>
-  <table mat-table [dataSource]="dataSource">
-    <ng-container matColumnDef="url">
-      <th mat-header-cell *matHeaderCellDef>ID</th>
-      <td mat-cell *matCellDef="let character">
-        <a href="{{ character.url }}">{{
-          character.url | getId : "characters/"
-        }}</a>
-      </td>
-    </ng-container>
+<div class="group">
+  <form class="filter-form" [formGroup]="filterForm" (ngSubmit)="getCharacters()">
+    <h3>Filter the data</h3>
+    <mat-form-field>
+      <mat-label>Name of the character</mat-label>
+      <input matInput formControlName="name">
+      <mat-hint align="start">Search by name of the character, you need to type correctly the name like Catelyn Stark to
+        find info about it</mat-hint>
+    </mat-form-field>
 
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Name</th>
-      <td mat-cell *matCellDef="let character">{{ character.name }}</td>
-    </ng-container>
+    <mat-form-field>
+      <mat-label>Gender</mat-label>
+      <mat-select appearance="fill" formControlName="gender">
+        <mat-option [value]="'Male'">
+          Male
+        </mat-option>
+        <mat-option [value]="'Female'">
+          Female
+        </mat-option>
+      </mat-select>
+      <mat-hint align="start">Get list of character based on gender</mat-hint>
+    </mat-form-field>
 
-    <ng-container matColumnDef="gender">
-      <th mat-header-cell *matHeaderCellDef>Gender</th>
-      <td mat-cell *matCellDef="let character">{{ character.gender }}</td>
-    </ng-container>
+    <mat-form-field>
+      <mat-label>Culture of the character</mat-label>
+      <input matInput formControlName="culture">
+      <mat-hint align="start">Search by culture of the character, you need to type correctly the culture like Rivermen
+        to
+        find info about it</mat-hint>
+    </mat-form-field>
 
-    <ng-container matColumnDef="culture">
-      <th mat-header-cell *matHeaderCellDef>Culture</th>
-      <td mat-cell *matCellDef="let character">{{ character.culture }}</td>
-    </ng-container>
+    <mat-form-field>
+      <mat-label>Born of the character</mat-label>
+      <input matInput formControlName="born">
+      <mat-hint align="start">Search by born of the character, you need to type correctly the born information like 264
+        AC to
+        find info about it</mat-hint>
+    </mat-form-field>
 
-    <ng-container matColumnDef="born">
-      <th mat-header-cell *matHeaderCellDef>Born</th>
-      <td mat-cell *matCellDef="let character">{{ character.born }}</td>
-    </ng-container>
+    <mat-form-field>
+      <mat-label>Died of the character</mat-label>
+      <input matInput formControlName="died">
+      <mat-hint align="start">Search by died of the character, you need to type correctly the died information like 264
+        AC to
+        find info about it</mat-hint>
+    </mat-form-field>
 
-    <ng-container matColumnDef="died">
-      <th mat-header-cell *matHeaderCellDef>Died</th>
-      <td mat-cell *matCellDef="let character">{{ character.died }}</td>
-    </ng-container>
+    <section class="checkbox">
+      <mat-checkbox formControlName="isAlive">Is alive</mat-checkbox>
+    </section>
 
-    <ng-container matColumnDef="titles">
-      <th mat-header-cell *matHeaderCellDef>Titles</th>
-      <td mat-cell *matCellDef="let character">
-        {{ character.titles }}
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="aliases">
-      <th mat-header-cell *matHeaderCellDef>Aliases</th>
-      <td mat-cell *matCellDef="let character">
-        {{ character.aliases }}
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="father">
-      <th mat-header-cell *matHeaderCellDef>Father</th>
-      <td mat-cell *matCellDef="let character">
-        <a href="{{ character.father }}">{{
-          character.father | getId : "characters/"
-        }}</a>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="mother">
-      <th mat-header-cell *matHeaderCellDef>Mother</th>
-      <td mat-cell *matCellDef="let character">
-        <a href="{{ character.mother }}">{{
-          character.mother | getId : "characters/"
-        }}</a>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="spouse">
-      <th mat-header-cell *matHeaderCellDef>Spouse</th>
-      <td mat-cell *matCellDef="let character">
-        <a href="{{ character.spouse }}">{{
-          character.spouse | getId : "characters/"
-        }}</a>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="allegiances">
-      <th mat-header-cell *matHeaderCellDef>Allegiances</th>
-      <td mat-cell *matCellDef="let character">
-        <ng-container *ngFor="let allegiance of character.allegiances">
-          <a href="{{ allegiance }}">{{ allegiance | getId : "houses/" }}</a>
-        </ng-container>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="playedBy">
-      <th mat-header-cell *matHeaderCellDef>playedBy</th>
-      <td mat-cell *matCellDef="let character">
-        {{ character.playedBy }}
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
-
-  <mat-paginator
-    [pageIndex]="1"
-    [length]="300"
-    [pageSize]="10"
-    [pageSizeOptions]="[5, 10, 15]"
-  ></mat-paginator>
+    <div class="actions">
+      <button mat-raised-button type="reset">Reset</button>
+      <button mat-raised-button color="primary" type="submit">Filter</button>
+    </div>
+  </form>
 </div>
+
+<section class="display">
+  <app-content-pagination [dataSource]="dataSource" [loading$]="dataSource.loading$"
+    [displayedColumns]="displayedColumns" [configs]="configs" [pagination]="true" [dataLength]="3000"
+    [pageIndex]="pageIndex - 1" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+    (page)="handlePageEventChange($event)">
+  </app-content-pagination>
+</section>

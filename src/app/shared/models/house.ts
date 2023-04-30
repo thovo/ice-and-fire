@@ -16,3 +16,14 @@ export type House = {
     cadetBranches: string[];
     swornMembers: string[]
 }
+
+export type HousesFilterConfig = {
+    name: string | undefined,
+    region: string | undefined,
+    words: string | undefined,
+    hasWords: boolean | null | undefined,
+    hasTitles: boolean | null | undefined,
+    hasSeats: boolean | null | undefined,
+    hasDiedOut: boolean | null | undefined,
+    hasAncestralWeapons: boolean | null | undefined
+};

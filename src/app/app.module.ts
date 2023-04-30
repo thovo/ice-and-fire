@@ -8,6 +8,8 @@ import { StoreModule } from '@ngrx/store';
 import { HomeComponent } from './components/home/home.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { SharedModule } from './shared/shared.module';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,10 @@ import { SharedModule } from './shared/shared.module';
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     SharedModule
   ],
-  providers: [],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' },
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { subscriptSizing: 'dynamic' } }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

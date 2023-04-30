@@ -1,6 +1,6 @@
 import { DataSource, CollectionViewer } from "@angular/cdk/collections";
-import { BehaviorSubject, Observable, catchError, of, finalize } from "rxjs";
-import { Character } from "src/app/shared/models/character";
+import { BehaviorSubject, Observable, catchError, of, finalize, tap } from "rxjs";
+import { Character, CharactersFilterConfig } from "src/app/shared/models/character";
 import { CharactersService } from "src/app/shared/services/characters.service";
 
 export class CharactersDataSource implements DataSource<Character> {
@@ -21,12 +21,12 @@ export class CharactersDataSource implements DataSource<Character> {
         this.loadingSubject.complete();
     }
 
-    loadCharacters(page = 1, pageSize = 10) {
+    loadCharacters(pageIndex = 1, pageSize = 10, filterConfig: CharactersFilterConfig) {
         this.loadingSubject.next(true);
-        this.charactersService.getCharacters(page, pageSize).pipe(
+        this.charactersService.getCharacters(pageIndex, pageSize, filterConfig).pipe(
             catchError(() => of([])),
-            finalize(() => this.loadingSubject.next(false))
-        )
-            .subscribe(characters => this.charactersSubject.next(characters));
+            finalize(() => this.loadingSubject.next(false)),
+            tap(c => console.log(c))
+        ).subscribe(characters => this.charactersSubject.next(characters));
     }
 }

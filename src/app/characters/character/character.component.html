@@ -1,1 +1,82 @@
-<p>character works!</p>
+<div class="character">
+    <div class="spinner-container" *ngIf="!(character$ | async)">
+        <mat-spinner></mat-spinner>
+    </div>
+    <mat-card *ngIf="(character$ | async) as character">
+        <mat-card-header>
+            <mat-card-title>{{character.name}}</mat-card-title>
+            <mat-card-subtitle>Gender: {{character.gender}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="content">
+                <span>culture: {{character.culture}}</span>
+                <span>born: {{character.born}}</span>
+                <span>died: {{character.died}}</span>
+                <div class="titles">
+                    <span>Titles: </span>
+                    <ul>
+                        <li *ngFor="let title of character.titles">{{title}}</li>
+                    </ul>
+                </div>
+                <div class="aliases">
+                    <span>aliases: </span>
+                    <ul>
+                        <li *ngFor="let alias of character.aliases">{{alias}}</li>
+                    </ul>
+                </div>
+                <span>father:
+                    <a [routerLink]="['/','characters', (character.father | getId: 'characters/')]">
+                        {{character.father |
+                        getId: 'characters/'}}
+                    </a>
+                </span>
+                <span>mother:
+                    <a [routerLink]="['/','characters', (character.mother | getId: 'characters/')]">
+                        {{character.mother | getId:
+                        'characters/'}}
+                    </a>
+                </span>
+                <span>spouse:
+                    <a [routerLink]="['/','characters', (character.spouse | getId: 'characters/')]">
+                        {{character.spouse | getId:
+                        'characters/'}}
+                    </a>
+                </span>
+                <div class="allegiances">
+                    <span>allegiances: </span>
+                    <ul>
+                        <li *ngFor="let a of character.allegiances">
+                            <a [routerLink]="['/','houses', (a | getId: 'houses/')]">{{a | getId:
+                                'houses/'}}</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="books">
+                    <span>books: </span>
+                    <ul>
+                        <li *ngFor="let b of character.books">
+                            <a [routerLink]="['/','books', (b | getId: 'books/')]">{{b | getId:
+                                'books/'}}</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="pov-books">
+                    <span>Pov books: </span>
+                    <ul>
+                        <li *ngFor="let b of character.povBooks">
+                            <a [routerLink]="['/','books', (b | getId: 'books/')]">{{b | getId:
+                                'books/'}}</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tv-series">
+                    <span>TV series: </span>
+                    <ul>
+                        <li *ngFor="let s of character.tvSeries">{{s}}</li>
+                    </ul>
+                </div>
+                <span>Played by {{character.playedBy}}</span>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

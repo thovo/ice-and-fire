@@ -1,7 +1,16 @@
-table {
-    width: 100%;
+.group {
+    margin: 20px auto;
+    flex-direction: column;
 }
 
-.full-width {
-    width: 100%;
+.actions {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.filter-form {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    width: calc(100% - 20px);
 }
