@@ -16,6 +16,9 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { AuthService } from '@services/auth.service';
+import { HousesService } from '@services/houses.service';
 
 @NgModule({
     declarations: [
@@ -36,6 +39,7 @@ import { MatButtonModule } from '@angular/material/button';
         ReactiveFormsModule,
         MatInputModule,
         MatButtonModule,
+        MatCheckboxModule
     ],
     exports: [
         LoginComponent,
@@ -46,7 +50,9 @@ import { MatButtonModule } from '@angular/material/button';
     ],
     providers: [
         BooksService,
-        CharactersService
+        CharactersService,
+        HousesService,
+        AuthService
     ]
 })
 export class SharedModule { }

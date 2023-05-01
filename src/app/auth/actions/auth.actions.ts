@@ -1,13 +1,28 @@
-import { Action } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 
 export enum AuthActionTypes {
-    Login = '[Auth] Login'
+    Login = '[Auth] Login',
+    LoginSuccess = '[Auth] Login success',
+    LoginError = '[Auth] Login error'
 }
 
-export class Login implements Action {
-    readonly type = AuthActionTypes.Login;
+export type UserLogin = {
+    username: string | undefined;
+    password: string | undefined;
+    rememberUser: boolean | undefined;
+};
 
-    constructor(public payload: { email: string, password: string }) { }
-}
+export const AuthLogin = createAction(
+    AuthActionTypes.Login,
+    props<{ userLogin: UserLogin }>(),
+);
 
-export type AuthActions = Login;
+export const AuthLoginSuccess = createAction(
+    AuthActionTypes.LoginSuccess,
+    props<{ username: string, isAuthenticated: boolean }>()
+);
+
+export const AuthLoginError = createAction(
+    AuthActionTypes.LoginError,
+    props<{ error: string }>()
+);

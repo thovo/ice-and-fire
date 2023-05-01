@@ -27,11 +27,13 @@
     "@ngrx/store": "^15.4.0",
     "@ngrx/store-devtools": "^15.4.0",
     "@types/node": "^18.15.13",
+    "date-fns": "^2.30.0",
     "jest-preset-angular": "^13.0.1",
     "jest-snapshot-serializer-raw": "^1.2.0",
     "rxjs": "~7.8.0",
     "ts-jest": "^29.1.0",
     "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"
   },
