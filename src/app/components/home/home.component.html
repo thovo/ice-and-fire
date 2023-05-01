@@ -38,10 +38,17 @@
     <a href="https://anapioficeandfire.com/">here</a>
   </span>
 
-  <span>
-    Before using this application, you must enter a user name and password.
-    You can enter as you wish because this function will not check any thing.
-    It will simulate only log in action, save the user name, and allow you to browse the resource from the menu
-  </span>
-  <app-login></app-login>
+  <div class="login" *ngIf="!(isAuth$ | async); else welcome;">
+    <span>
+      Before using this application, you must enter a user name and password.
+      You can enter as you wish because this function will not check any thing.
+      It will simulate only log in action, save the user name, and allow you to browse the resource from the menu
+    </span>
+    <app-login></app-login>
+  </div>
+
+  <ng-template #welcome>
+    <span>Welcome {{username$ | async}} to use this application ! You can start by browsing from the menu above.</span>
+  </ng-template>
+
 </div>

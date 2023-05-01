@@ -10,76 +10,91 @@ import { CellRenderConfig } from '@shared/components/content-pagination/content-
 @Component({
   selector: 'app-characters',
   templateUrl: './characters.component.html',
-  styleUrls: ['./characters.component.scss']
+  styleUrls: ['./characters.component.scss'],
 })
 export class CharactersComponent implements OnInit {
   characters$!: Observable<Character[]>;
   dataSource!: CharactersDataSource;
-  displayedColumns = ['url', 'name', 'gender', 'culture', 'born', 'died', 'titles', 'aliases', 'father', 'mother', 'spouse', 'allegiances',
-    'books', 'povBooks', 'tvSeries', 'playedBy'
+  displayedColumns = [
+    'url',
+    'name',
+    'gender',
+    'culture',
+    'born',
+    'died',
+    'titles',
+    'aliases',
+    'father',
+    'mother',
+    'spouse',
+    'allegiances',
+    'books',
+    'povBooks',
+    'tvSeries',
+    'playedBy',
   ];
   configs: Record<string, CellRenderConfig> = {
-    'url': {
+    url: {
       matHeaderCellDef: 'ID',
       getIdValue: 'characters/',
-      isSticky: true
+      isSticky: true,
     },
-    'name': {
-      matHeaderCellDef: 'Name'
+    name: {
+      matHeaderCellDef: 'Name',
     },
-    'gender': {
-      matHeaderCellDef: 'Gender'
+    gender: {
+      matHeaderCellDef: 'Gender',
     },
-    'culture': {
-      matHeaderCellDef: 'Culture'
+    culture: {
+      matHeaderCellDef: 'Culture',
     },
-    'born': {
-      matHeaderCellDef: 'Born'
+    born: {
+      matHeaderCellDef: 'Born',
     },
-    'died': {
-      matHeaderCellDef: 'Died'
+    died: {
+      matHeaderCellDef: 'Died',
     },
-    'titles': {
+    titles: {
       matHeaderCellDef: 'Titles',
-      isList: true
+      isList: true,
     },
-    'aliases': {
+    aliases: {
       matHeaderCellDef: 'Aliases',
-      isList: true
+      isList: true,
     },
-    'father': {
+    father: {
       matHeaderCellDef: 'Father',
-      getIdValue: 'characters/'
+      getIdValue: 'characters/',
     },
-    'mother': {
+    mother: {
       matHeaderCellDef: 'Mother',
-      getIdValue: 'characters/'
+      getIdValue: 'characters/',
     },
-    'spouse': {
+    spouse: {
       matHeaderCellDef: 'Spouse',
-      getIdValue: 'characters/'
+      getIdValue: 'characters/',
     },
-    'allegiances': {
+    allegiances: {
       matHeaderCellDef: 'Allegiances',
       isList: true,
-      getIdValue: 'houses/'
+      getIdValue: 'houses/',
     },
-    'books': {
+    books: {
       matHeaderCellDef: 'Books',
       isList: true,
-      getIdValue: 'books/'
+      getIdValue: 'books/',
     },
-    'povBooks': {
+    povBooks: {
       matHeaderCellDef: 'POV Books',
       isList: true,
-      getIdValue: 'books/'
+      getIdValue: 'books/',
     },
-    'tvSeries': {
+    tvSeries: {
       matHeaderCellDef: 'TV Series',
-      isList: true
+      isList: true,
     },
-    'playedBy': {
-      matHeaderCellDef: 'Played by'
+    playedBy: {
+      matHeaderCellDef: 'Played by',
     },
   };
   filterForm = new FormGroup({
@@ -94,7 +109,7 @@ export class CharactersComponent implements OnInit {
   pageIndex = 1;
   pageSizeOptions = [10, 15];
 
-  constructor(private charactersService: CharactersService) { }
+  constructor(private charactersService: CharactersService) {}
 
   ngOnInit(): void {
     this.dataSource = new CharactersDataSource(this.charactersService);
@@ -102,18 +117,23 @@ export class CharactersComponent implements OnInit {
   }
 
   getCharacters(): void {
-    const { name, gender, culture, born, died, isAlive } = this.filterForm.value;
-    const filterConfig: CharactersFilterConfig = { name, gender, culture, born, died, isAlive };
-    console.log(this.filterForm.value);
+    const { name, gender, culture, born, died, isAlive } =
+      this.filterForm.value;
+    const filterConfig: CharactersFilterConfig = {
+      name,
+      gender,
+      culture,
+      born,
+      died,
+      isAlive,
+    };
     this.dataSource.loadCharacters(this.pageIndex, this.pageSize, filterConfig);
   }
 
   handlePageEventChange(event: PageEvent): void {
-    console.log(event);
     const { pageSize, pageIndex } = event;
     this.pageSize = pageSize;
     this.pageIndex = pageIndex + 1; // Angular Material Paginator is zero-based index, API is 1-based index
     this.getCharacters();
   }
-
 }
