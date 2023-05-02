@@ -37,7 +37,7 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `npm run test` to execute the unit tests via [Jest](https://jestjs.io/).
 
 ## Todos
 
@@ -47,4 +47,4 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 ## Contribution
 
-Feel free to open a MR, I am happy to work on it.
+Feel free to open a PR or submit an issue, I am happy to work on it.
